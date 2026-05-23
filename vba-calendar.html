@@ -35,12 +35,13 @@
     box-shadow: var(--shadow); width: 100%; overflow: hidden;
   }
   .cal-header {
-    background: var(--green); padding: 18px 22px;
-    display: flex; align-items: center; justify-content: space-between;
+    background: var(--green); padding: clamp(10px,2.5vw,18px) clamp(10px,2vw,22px);
+    display: flex; align-items: center; justify-content: space-between; gap: 8px;
   }
   .cal-header .month-label {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1.35rem; font-weight: 600; letter-spacing: 0.06em; color: var(--white);
+    font-size: clamp(1rem,4vw,1.6rem); font-weight: 600; letter-spacing: 0.04em; color: var(--white);
+    white-space: nowrap; flex: 1; text-align: center;
   }
   .cal-nav {
     background: none; border: 1px solid rgba(255,255,255,0.35); color: var(--white);
@@ -53,9 +54,9 @@
   .cal-grid { padding: clamp(4px,1.5vw,16px) clamp(4px,1.5vw,16px) clamp(8px,2vw,20px); }
   .day-names { display: grid; grid-template-columns: repeat(7,1fr); margin-bottom: 4px; }
   .day-name {
-    text-align: center; font-size: clamp(0.45rem,1.2vw,0.7rem); font-weight: 500;
-    letter-spacing: 0.04em; text-transform: uppercase; color: var(--grey-mid);
-    padding: clamp(2px,0.5vw,4px) 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    text-align: center; font-size: clamp(0.38rem,1.8vw,0.7rem); font-weight: 500;
+    letter-spacing: 0; text-transform: uppercase; color: var(--grey-mid);
+    padding: clamp(2px,0.5vw,4px) 0; white-space: nowrap; overflow: hidden; text-overflow: clip;
   }
   .days-grid { display: grid; grid-template-columns: repeat(7,1fr); gap: 0; border-left: 1px solid var(--grey-light); border-top: 1px solid var(--grey-light); }
   .day-cell {
@@ -111,9 +112,12 @@
   .legend-dot.green { background: #9b1c31; }
   .legend-dot.black { background: var(--black); }
 
+  .dn-short { display: none; }
+  .dn-long  { display: inline; }
   @media (max-width: 500px) {
-    .day-name { font-size: 0.42rem; letter-spacing: 0; }
-    .cell-label { font-size: 0.38rem; }
+    .dn-short { display: inline; }
+    .dn-long  { display: none; }
+    .day-name { font-size: 0.5rem; }
     .row-2 { grid-template-columns: 1fr; }
     .modal { border-radius: 0; }
     .events-list-sheep { display: none; }
@@ -275,10 +279,13 @@
   </div>
   <div class="cal-grid">
     <div class="day-names">
-      <div class="day-name">Sun</div><div class="day-name">Mon</div>
-      <div class="day-name">Tue</div><div class="day-name">Wed</div>
-      <div class="day-name">Thu</div><div class="day-name">Fri</div>
-      <div class="day-name">Sat</div>
+      <div class="day-name"><span class="dn-long">Sun</span><span class="dn-short">S</span></div>
+      <div class="day-name"><span class="dn-long">Mon</span><span class="dn-short">M</span></div>
+      <div class="day-name"><span class="dn-long">Tue</span><span class="dn-short">T</span></div>
+      <div class="day-name"><span class="dn-long">Wed</span><span class="dn-short">W</span></div>
+      <div class="day-name"><span class="dn-long">Thu</span><span class="dn-short">T</span></div>
+      <div class="day-name"><span class="dn-long">Fri</span><span class="dn-short">F</span></div>
+      <div class="day-name"><span class="dn-long">Sat</span><span class="dn-short">S</span></div>
     </div>
     <div class="days-grid" id="daysGrid"></div>
   </div>
