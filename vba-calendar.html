@@ -473,7 +473,7 @@ function renderCalendar() {
   for (let d = 1; d <= daysInMonth; d++) {
     const isToday  = d === today.getDate() && currentMonth === today.getMonth() && currentYear === today.getFullYear();
     const dateStr  = isoDate(currentYear, currentMonth, d);
-    const dayEvts  = events.filter(e => e.date === dateStr);
+    const dayEvts  = events.filter(e => String(e.date).substring(0, 10) === dateStr);
     grid.appendChild(makeCell(d, false, isToday, dayEvts, dateStr));
   }
 
@@ -711,7 +711,7 @@ function openViewModal(id) {
       <div class="event-detail-icon">📅</div>
       <div>
         <div class="event-detail-label">Date</div>
-        <div class="event-detail-text">${formatDisplayDate(evt.date)}${evt.time ? ' at ' + formatTime(evt.time) : ''}</div>
+        <div class="event-detail-text">${formatDisplayDate(String(evt.date).substring(0,10))}${evt.time ? ' at ' + formatTime(evt.time) : ''}</div>
       </div>
     </div>
     ${evt.location ? `
@@ -774,7 +774,7 @@ function editCurrentEvent() {
   document.getElementById('addModalTitle').textContent  = 'Edit Event';
   document.getElementById('evtName').value     = evt.name;
   document.getElementById('evtLabel').value    = evt.label    || '';
-  document.getElementById('evtDate').value     = evt.date;
+  document.getElementById('evtDate').value     = String(evt.date).substring(0, 10);
   document.getElementById('evtTime').value     = evt.time     || '';
   document.getElementById('evtLocation').value = evt.location || '';
   document.getElementById('evtDesc').value     = evt.desc     || '';
